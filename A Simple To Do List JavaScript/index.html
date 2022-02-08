@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+
+  <title>Hello, world!</title>
+  <style>
+    .d-flex {
+      margin-left: 30%;
+    }
+
+    .form-control {
+      margin-right: 5px;
+    }
+  </style>
+
+
+
+</head>
+
+<body>
+  <div>
+    <nav class="navbar navbar-expand-lg  navbar-dark bg-dark navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">ToDo List</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Items
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link">Contact Us</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+
+  <div class="container">
+
+
+    <h2 class="text-center my-4">ToDo List</h2>
+
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" id="title" aria-describedby="emailHelp">
+      <div id="emailHelp" class="form-text">Add An Item To Your List</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" rows="3"></textarea>
+    </div>
+
+    <button type="submit" id="add" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary float-right" id="clear">Clear List</button>
+
+
+
+    <div>
+      <h2 class="my-4">
+        Your Items
+      </h2>
+
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Serial Number</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th>Actions</th>
+
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <tr>
+            <th scope="row">1</th>
+            <td>Excercise</td>
+            <td>I will go to gym today</td>
+            <th> <button class="btn btn-primary btn-sm">Delete</button></th>
+
+          </tr>
+
+        </tbody>
+      </table>
+
+
+    </div>
+
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+
+
+   <script> 
+
+
+
+
+
+function getandupdate() {
+
+  tit = document.getElementById('title').value;
+  desc = document.getElementById('description').value;
+  
+
+  if (localStorage.getItem('itemsJson')==null) {
+    itemsJsonArray = [];
+    itemsJsonArray.push([tit, desc]);
+    localStorage.setItem('itemsJson' , JSON.stringify(itemsJsonArray))
+    
+  }else{
+    itemsJsonArraystr = localStorage.getItem('itemsJson');
+    itemsJsonArray = JSON.parse(itemsJsonArraystr);
+    itemsJsonArray.push([tit, desc]);
+    localStorage.setItem('itemsJson' , JSON.stringify(itemsJsonArray))
+  }
+  update ();
+}
+
+function update(){
+  if (localStorage.getItem('itemsJson')== null) {
+    itemsJsonArray = [];
+    localStorage.setItem('itemsJson' , JSON.stringify(itemsJsonArray))
+
+    
+  }else{
+    itemsJsonArraystr = localStorage.getItem('itemsJson');
+    itemsJsonArray = JSON.parse(itemsJsonArraystr);
+    localStorage.setItem('itemsJson' , JSON.stringify(itemsJsonArray))
+  }
+  let str = "";
+  itemsJsonArray.forEach((element , index ) => {
+    str += ` <tr>
+            <th scope="row">${index + 1}</th>
+            <td>${element[0]}</td>
+            <td>${element[1]}</td>
+            <th> <button class="btn btn-primary btn-sm" onclick="deleted(${index})">Delete</button></th>
+
+          </tr>`
+    
+  });
+  tbody= document.getElementById('tbody');
+  tbody.innerHTML = str; 
+}
+
+
+
+function deleted (indexitom){
+  itemsJsonArraystr = localStorage.getItem('itemsJson');
+    itemsJsonArray = JSON.parse(itemsJsonArraystr);
+    itemsJsonArray.splice(indexitom, 1);
+    localStorage.setItem('itemsJson' , JSON.stringify(itemsJsonArray))
+    update();
+
+
+
+}
+
+
+
+
+
+
+add = document.getElementById('add');
+add.addEventListener('click', getandupdate)
+
+
+update();
+
+
+function clear(){
+  localStorage.clear();
+  update();
+  console.log('usama j')
+}
+ 
+clear1 = document.getElementById('clear');
+clear1.addEventListener('click' , clear);
+
+
+  </script> 
+
+
+
+
+
+</body>
+
+
+</html>
